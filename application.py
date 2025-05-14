@@ -7,6 +7,9 @@ st.title("Welcome to Rev-Data!")
 
 manager = RevenueManager()
 
+#Thisis the developer branch 
+
+
 ####-----Side Bar Navigation -----###
 
 st.sidebar.header("Navigation")
