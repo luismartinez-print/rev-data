@@ -1,49 +1,40 @@
 import streamlit as st
 import pandas as pd 
-from book import Book
-import pandas as pd
+from app.models.book import Book
+from app.data_loader import load_all_books, create_book
 import os
 import pickle
 from datetime import datetime, timedelta
 import plotly.graph_objects as go
 import plotly.express as px
+import logging
 
 class RevenueManager():
     def __init__(self):
-        self.booksdict = {}
-        self.next_book_number = 0
-        self.data_dir = 'books_data'
-        os.makedirs(self.data_dir, exist_ok=True)
-        self.load_all_books() #Load the existing books in the memory
+        self.booksdict = load_all_books()
+        if not self.booksdict:
+            self.next_book_number = 1
+        else:
+            self.next_book_number = max(self.booksdict.keys()) + 1
         self.forecast_horizon = 60
-
+        logging.basicConfig(level=logging.INFO)
 ###----- METHODS TO STORE AND WRITE TO DATABASE OR FILE----###
 
 
-    def save_book(self, book_num):
-        #save book to disk
-        book = self.booksdict[book_num]
-        with open(f"{self.data_dir}/book_{book_num}.pkl", "wb") as f:
-            pickle.dump(book, f)
-    
-    def load_all_books(self):
-        #Load all books saved in disk when app starts
-        for file in os.listdir(self.data_dir):
-            if file.startswith("book_") and file.endswith(".pkl"):
-                book_number = int(file.split("_")[1].split(".")[0])
-                with open(f"{self.data_dir}/{file}", "rb") as f:
-                    book = pickle.load(f)
-                    self.booksdict[book_number] = book
-                    self.next_book_number = max(self.next_book_number, book_number + 1)
-
     def create_book(self, name, password):
         #Create a book
-        book = Book(name, password)
-        new_book_number = self.next_book_number         
-        self.booksdict[new_book_number] = book
-        self.save_book(new_book_number) #save after creation
-        self.next_book_number += 1
-        return new_book_number
+        try:
+            new_book_number = create_book(name, password)
+            if new_book_number is None:
+                logging.error("Failed to create book in database")
+                return None
+            book = Book(name, password)
+            self.booksdict[new_book_number] = book
+            self.next_book_number = new_book_number + 1
+            logging.info(f"Book {new_book_number} created successfully")
+            return new_book_number
+        except Exception as e:
+            print(f"Error Creating Book: {e}")
     
 
 ###------ STREAMLIT UI METHODS FOR BETTER INTERFACE-----#####

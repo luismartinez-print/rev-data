@@ -1,5 +1,5 @@
 import streamlit as st
-from room import Room
+from app.models.room import Room
 from datetime import date
 
 class RoomNight():

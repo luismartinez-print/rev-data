@@ -1,13 +1,12 @@
 import streamlit as st
 import plotly
-from manager import RevenueManager
+from app.manager import RevenueManager
 
 st.set_page_config(page_title="Rev-Data", layout='wide')
 st.title("Welcome to Rev-Data!")
 
 manager = RevenueManager()
 
-#Thisis the developer branch 
 
 
 ####-----Side Bar Navigation -----###
