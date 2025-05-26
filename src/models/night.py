@@ -1,5 +1,5 @@
 import streamlit as st 
-from app.models.roomnight import RoomNight
+from src.models.roomnight import RoomNight
 from datetime import date
 import pandas as pd
 import numpy as np

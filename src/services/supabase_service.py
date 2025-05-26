@@ -2,7 +2,7 @@ from supabase import create_client, Client
 import os
 from typing import Dict
 import bcrypt
-from app.models.book import Book
+from src.models.book import Book
 
 #Initialize Supbase Client
 SUPABASE_URL = os.environ.get("SUPABASE_URL")

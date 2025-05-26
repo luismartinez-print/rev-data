@@ -1,10 +1,10 @@
 import streamlit as st
-from app.models.night import Night
-from app.models.room import Room
+from src.models.night import Night
+from src.models.room import Room
 import numpy as np
-from app.models.roomnight import RoomNight
+from src.models.roomnight import RoomNight
 import pandas as pd
-from app.models.fareclass import FareClass
+from src.models.fareclass import FareClass
 from datetime import timedelta, datetime
 from livereservation import LiveReservaitonGenerator
 

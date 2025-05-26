@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd 
-from app.models.book import Book
-from app.data_loader import load_all_books, create_book
+from src.models.book import Book
+from src.services.supabase_service import load_all_books, create_book
 import os
 import pickle
 from datetime import datetime, timedelta
