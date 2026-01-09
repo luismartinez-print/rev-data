@@ -1,2 +1,5 @@
+# .gitignore
+
 __pycache__/
-readme.qmd
+*.pyc
+.DS_Store
