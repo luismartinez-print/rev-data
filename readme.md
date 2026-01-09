@@ -19,8 +19,9 @@ accounts and those accounts have different methods. In this prototype
 there is manager that manages books (hotels), which are made out of
 nights.
 
-![Use Case Diagram](images/use_case.png) ![Class
-Diagram](images/use_case.png)
+![Use Case Diagram](images/use_case.png) 
+
+![ClassDiagram](images/class_diagram.png)
 
 # Models
 
@@ -61,17 +62,23 @@ $$
 **Subject to:**
 
 - **Capacity Constraints:** The total rooms sold for any given night $t$
-  cannot exceed the hotel’s capacity $C_t$. $$
+  cannot exceed the hotel’s capacity $C_t$.
+
+  $$
     \sum_{i,l,k} \ x_{ilk} \leq C_t \quad \forall t
     $$ *(Where $\delta_{ilt} = 1$ if the stay includes night $t$, else
   $0$)*
 
 - **Demand Constraints:** Sales cannot exceed the forecasted
-  deterministic demand $d_{ilk}$. $$
+  deterministic demand $d_{ilk}$.
+
+  $$
     x_{ilk} \leq d_{ilk} \quad \forall i, l, k
     $$
 
-- **Non-negativity:** $$
+- **Non-negativity:**
+
+  $$
     x_{ilk} \geq 0
     $$
 
@@ -110,7 +117,6 @@ installing lenght of stay controls.
 
 If you are interested in Bid Prices I go into detail here.
 
-!(Bid Price
-Simulation)\[https://github.com/luismartinez-print/bid_price_simulation\]
-!(Bid Prices
-Intuiton)\[https://www.rev-m.net/network-management-videos\]
+![Bid PriceSimulation](https://github.com/luismartinez-print/bid_price_simulation.png)
+
+![Bid PricesIntuiton](https://www.rev-m.net/network-management-videos.png)
