@@ -1,12 +1,12 @@
 import streamlit as st
-from night import Night
-from room import Room
+from src.night import Night
+from src.room import Room
 import numpy as np
-from roomnight import RoomNight
+from src.roomnight import RoomNight
 import pandas as pd
-from fareclass import FareClass
+from src.fareclass import FareClass
 from datetime import timedelta, datetime
-from livereservation import LiveReservaitonGenerator
+from simulators.livereservation import LiveReservaitonGenerator
 
 class Book():
     def __init__(self, name, password):

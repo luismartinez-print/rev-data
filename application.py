@@ -1,9 +1,10 @@
 import streamlit as st
 import plotly
-from manager import RevenueManager
+from src.manager import RevenueManager
 
-st.set_page_config(page_title="Rev-Data", layout='wide')
+st.set_page_config(page_title="Rev-Data", layout='wide', initial_sidebar_state="expanded")
 st.title("Welcome to Rev-Data!")
+
 
 manager = RevenueManager()
 
@@ -54,7 +55,6 @@ if page == "Login":
     st.subheader("Rev-Data News and Updates")
 
     books = len(manager.booksdict.keys())
-    st.subheader(f"Did you know that Rev-Data counts with {books} total clients!")
    
 
 
@@ -106,7 +106,7 @@ elif page == "Rates and Hurdle Rates":
 
 
 elif page == "LogOut":
-    st.subheader("🚪 Log Out")
+    st.subheader("Log Out")
     if st.button("Do you wish to log out?"):
     
         if "book_num" in st.session_state:

@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd 
-from book import Book
+from src.book import Book
 import pandas as pd
 import os
 import pickle
@@ -12,7 +12,7 @@ class RevenueManager():
     def __init__(self):
         self.booksdict = {}
         self.next_book_number = 0
-        self.data_dir = 'books_data'
+        self.data_dir = '/books_data/'
         os.makedirs(self.data_dir, exist_ok=True)
         self.load_all_books() #Load the existing books in the memory
         self.forecast_horizon = 60
@@ -49,15 +49,15 @@ class RevenueManager():
 ###------ STREAMLIT UI METHODS FOR BETTER INTERFACE-----#####
 
     def open_book(self):
-        st.write("📘Welcome to Rev-Data! Let's Create your Book!")
-        name = st.text_input("🏨Enter your hotel name")
-        password = st.text_input("🔐Create a password", type='password')
+        st.write("Welcome to Rev-Data! Let's Create your Book!")
+        name = st.text_input("Enter your hotel name")
+        password = st.text_input("Create a password", type='password')
 
         if st.button("🚀Create Book"):
             book_number = self.create_book(name, password)
             st.session_state["book_num"] = book_number
             st.session_state['password'] = password
-            st.success(f"Book Created!🎉, your book number is **{book_number}**")
+            st.success(f"Book Created!, your book number is **{book_number}**")
 
 
     def create_rooms(self):
