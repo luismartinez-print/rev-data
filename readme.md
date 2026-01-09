@@ -64,23 +64,24 @@ $$
 - **Capacity Constraints:** The total rooms sold for any given night $t$
   cannot exceed the hotel’s capacity $C_t$.
 
-  $$
-    \sum_{i,l,k} \ x_{ilk} \leq C_t \quad \forall t
-    $$ *(Where $\delta_{ilt} = 1$ if the stay includes night $t$, else
-  $0$)*
+$$
+\sum_{i,l,k} \ x_{ilk} \leq C_t \quad \forall t
+$$ 
+*(Where $\delta_{ilt} = 1$ if the stay includes night $t$, else
+$0$)*
 
 - **Demand Constraints:** Sales cannot exceed the forecasted
   deterministic demand $d_{ilk}$.
 
-  $$
-    x_{ilk} \leq d_{ilk} \quad \forall i, l, k
-    $$
+$$
+x_{ilk} \leq d_{ilk} \quad \forall i, l, k
+$$
 
 - **Non-negativity:**
 
-  $$
-    x_{ilk} \geq 0
-    $$
+$$
+x_{ilk} \geq 0
+$$
 
 ------------------------------------------------------------------------
 
