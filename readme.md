@@ -65,8 +65,9 @@ $$
   cannot exceed the hotel’s capacity $C_t$.
 
 $$
-\sum_{i,l,k} \ x_{ilk} \leq C_t \quad \forall t
+\sum_{i,l,k}\x_{ilk} \leq C_t \quad \forall t
 $$ 
+
 *(Where $\delta_{ilt} = 1$ if the stay includes night $t$, else
 $0$)*
 
