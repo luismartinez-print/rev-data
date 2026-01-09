@@ -1,0 +1,116 @@
+
+
+# Hotel Revenue Management System Prototype
+
+This project explores how a RMS for a SaaS could be designed using
+python with a Streamlit framework.
+
+The prototype utilizes pickle files to simulate the storing and reading
+of books that were already created with a book number and a password.
+Obvisously in a real application more encryption is needed. Also, the
+implementation of a relational database as the backend is also needed
+and transformed with SQLAlchemy.
+
+# System Design
+
+The system follows a OOP structure where there are base objects and
+object managers. Utilizing the idea of a bank that manages several
+accounts and those accounts have different methods. In this prototype
+there is manager that manages books (hotels), which are made out of
+nights.
+
+![Use Case Diagram](images/use_case.png) ![Class
+Diagram](images/use_case.png)
+
+# Models
+
+## Forecast
+
+The system right now utilizes relative pickup method to calculate the
+next 30 days in advance. This utilizes the different booking window for
+each day of the week taking into account the seasonality factor.
+
+## Price Optimization
+
+For the price optimization the model used was a constrained constant
+elasticity with constrained capacity. By resolving where the derative of
+revenue equals 0.
+
+$$
+R'(p) = d'(p)(p-c)+d(p)
+$$
+
+## Bid Price Optimization
+
+This is the crucial part of the optimization for revenue management,
+where the dual optimization problem for the linear programming problem
+for allocation of deterministic demand for given rate class and lenght
+of stay.
+
+### 1. The Primal Problem (Revenue Maximization)
+
+We define the decision variable $x_{ilk}$ as the number of bookings
+accepted for arrival date $i$, length of stay $l$, and fare class $k$.
+
+**Objective Function:** Maximize total revenue $R$:
+
+$$
+\text{Maximize } R = \sum_{i,l,k} r_{ilk} \cdot x_{ilk}
+$$
+
+**Subject to:**
+
+- **Capacity Constraints:** The total rooms sold for any given night $t$
+  cannot exceed the hotel’s capacity $C_t$. $$
+    \sum_{i,l,k} \ x_{ilk} \leq C_t \quad \forall t
+    $$ *(Where $\delta_{ilt} = 1$ if the stay includes night $t$, else
+  $0$)*
+
+- **Demand Constraints:** Sales cannot exceed the forecasted
+  deterministic demand $d_{ilk}$. $$
+    x_{ilk} \leq d_{ilk} \quad \forall i, l, k
+    $$
+
+- **Non-negativity:** $$
+    x_{ilk} \geq 0
+    $$
+
+------------------------------------------------------------------------
+
+### 2. The Dual Problem (Bid Price Calculation)
+
+The shadow prices derived from the dual problem represent the marginal
+value of inventory.
+
+**Dual Variables:** \* $\lambda_t$: The **Bid Price** (shadow price of
+capacity) for night $t$. \* $\mu_{ilk}$: The shadow price of demand for
+a specific booking class.
+
+**Objective Function:** Minimize the opportunity cost of capacity and
+demand:
+
+$$
+\text{Minimize } W = \sum_{t} C_t \lambda_t + \sum_{i,l,k} d_{ilk} \mu_{ilk}
+$$
+
+**Subject to:**
+
+$$
+\sum_{t} \delta_{ilt} \pi_t + \sigma_{ilk} \geq r_{ilk} \quad \forall i, l, k
+$$
+
+------------------------------------------------------------------------
+
+The shadow price of the capacity constrained is equal to the minimum
+fare that should be accepted for a given date $\lambda$.
+
+A reservation is accepted if the reservations revenue exceeds the hurdle
+revenue or the sum of the bid prices. This tackles the problem of
+installing lenght of stay controls.
+
+If you are interested in Bid Prices I go into detail here.
+
+!(Bid Price
+Simulation)\[https://github.com/luismartinez-print/bid_price_simulation\]
+!(Bid Prices
+Intuiton)\[https://www.rev-m.net/network-management-videos\]
